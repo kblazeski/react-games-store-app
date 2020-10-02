@@ -1,0 +1,40 @@
+.NavigationItems{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+.NavigationItemsAuth{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+.Badge{
+    background-color: #c21e1b;
+    border-radius: 9px;
+    width: 19px;
+    display: inline-block;
+    height: 19px;
+    font-size: 14px;
+    text-align: center;
+}
+@media (max-width: 823px){
+    .NavigationItems{
+        flex-direction: column;
+    }
+    .NavigationItems li{
+        width: 100%;
+    }
+    .NavigationItemsAuth{
+        flex-direction: column;
+        width:100%;
+    }
+    .NavigationItemsAuth li{
+        width: 100%;
+    }
+}

@@ -1,0 +1,25 @@
+.Buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.ButtonSuccess{
+    background-color: transparent;
+    font-weight: bold;
+    color: limegreen;
+    border:none;
+
+}
+.ButtonSuccess:focus{
+    outline: none;
+}
+.ButtonFail{
+    background-color: transparent;
+    font-weight: bold;
+    color: #c21e1b;
+    border:none;
+
+}
+.ButtonFail:focus{
+    outline: none;
+}

@@ -1,0 +1,76 @@
+.GameItemOuter{
+    width: 250px;
+    height: 270px;
+    display: flex;
+    flex-direction: column;
+    background-color: #242323;
+    margin: 10px;
+    border-radius: 7px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 3px #0a0a0a;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.GameItemClickable{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+img {
+    pointer-events: none;
+}
+.GameItemOuter:hover{
+    animation: enable 0.3s linear forwards;
+}
+@keyframes enable {
+    0% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+.PicturePart{
+    width:100%;
+    height: 100%;
+}
+.PicturePart img{
+    width:100%;
+    height: 100%;
+    position: inherit;
+    border-radius: 7px;
+}
+.TextPart{
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: #bab6b6;
+}
+.PricePart{
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: #bab6b6;
+}
+.Button{
+    background-color: transparent;
+    outline: none;
+    color: white;
+    width:100%;
+    border: none;
+}
+.Button:focus{
+    outline: none;
+}
+.Button:active{
+    color: #c21e1b;
+}

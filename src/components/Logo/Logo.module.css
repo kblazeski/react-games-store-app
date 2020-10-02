@@ -1,0 +1,8 @@
+.Logo{
+    display:block;
+    height: 100%;
+}
+.Logo img{
+    width: inherit;
+    height: inherit;
+}

@@ -1,0 +1,75 @@
+.SignUpOuterContainer{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.SignUpContainer{
+    width: 500px;
+    margin: 15px auto;
+    height: 100%;
+    box-shadow: 0 2px 3px #0a0a0a;
+    border: 1px solid #1a1919;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.SignUpContainer h3{
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+.SignUpContainer label{
+    color: #c21e1b;
+}
+.Input{
+    display:block;
+    width:100%;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    height: 50px;
+}
+.Input:focus{
+    outline: none;
+}
+.Invalid{
+    display: block;
+    width: 100%;
+    border:1px solid red;
+    border-radius: 3px;
+    height: 50px;
+}
+.Invalid:focus{
+    outline: none;
+}
+.SignUpContainer button{
+    margin: 25px auto;
+    display: block;
+    width: 150px;
+    height: 50px;
+    background-color: #c21e1b;
+    color:white;
+    border: #c21e1b;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.SignUpContainer button:focus{
+    outline: none;
+}
+.SignUpContainer button:disabled{
+    background-color: grey;
+}
+.SignUpForm{
+    height: 500px;
+    width: 40%;
+    margin: 71px auto;
+    background-color: #242323;
+    box-shadow: 0 2px 2px black;
+    border-radius: 9px;
+    box-sizing: border-box;
+    padding: 22px;
+}
+@media (max-width: 532px){
+    .SignUpContainer{
+        width: 85%;
+    }
+}

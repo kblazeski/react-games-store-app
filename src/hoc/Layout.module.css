@@ -1,0 +1,8 @@
+.Layout{
+    width: 100%;
+    /*Ovde treba height 100% za koga kje stavame componenti da si bide tamam*/
+    height: 100%;
+    background-color: #141715;
+    margin-top:50px;
+    min-height: 100vh;
+}

@@ -1,0 +1,27 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import {createStore,combineReducers,applyMiddleware,compose} from 'redux';
+import thunk from 'redux-thunk';
+import shoppingCartReducer from "./store/reducers/ShoppingCart";
+import authReducer from './store/reducers/Auth';
+import {Provider} from 'react-redux';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const reducers = combineReducers({
+    auth: authReducer,
+    shoppingCart: shoppingCartReducer
+})
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+
+ReactDOM.render(
+  <React.StrictMode>
+      <Provider store={store}>
+          <App />
+      </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
