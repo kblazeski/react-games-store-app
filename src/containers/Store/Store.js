@@ -1,119 +1,66 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import classes from './Store.module.css';
-import GameItems from '../../components/GameItems/GameItems';
-import axios from 'axios';
-import {connect} from 'react-redux';
-import * as action from '../../store/actions/index';
+import React, { useCallback, useState } from 'react'
+import { connect } from 'react-redux'
+import { musicApi } from '../../api/MusicApi'
+import Albums from '../../components/Albums/Albums'
+import { useDidComponentUpdate } from '../../hooks/useDidComponentUpdate'
+import * as action from '../../store/actions/index'
+import classes from './Store.module.css'
+import { uniqBy } from 'lodash'
 
-const Store = props => {
-    const [games,setGames] = useState({});
-    const [timeoutState,setTimeoutState] = useState(0);
-    const [genres,setGenres] = useState([]);
-    const [searchQuery,setSearchQuery] = useState('');
-    const [searchGenre,setSearchGenre] = useState('');
-    const [pageNumber,setPageNumber] = useState(1);
+const Store = (props) => {
+  const [albums, setAlbums] = useState({})
+  const [timeoutState, setTimeoutState] = useState(0)
+  const [artistName, setArtistName] = useState('')
 
-    useEffect(() => {
-        search();
-    },[searchQuery,searchGenre,pageNumber])
-
-    useEffect(() => {
-        axios.get('https://api.rawg.io/api/genres')
-            .then(res => {
-                const genreArray = Object.values(res.data.results).map(item => {
-                    return {id: item.id,name: item.name};
-                })
-                setGenres(genreArray);
-            })
-    },[]);
-
-    const showDetails = useCallback( id => {
-        props.history.push('/store/details/'+id)},[]
-    );
-
-    const addGameToCart = id => {
-        let game = Object.values(games).filter(item => item.id === id);
-        const object = {
-            id: game[0].id,
-            name: game[0].name,
-            img: game[0].background_image,
-            released: game[0].released
-        }
-        props.addGameInCart(object);
-    }
-
-    const search = () => {
-        axios.get('https://api.rawg.io/api/games?page='+pageNumber+'&page_size=8&search='+searchQuery+'&'+searchGenre)
-            .then(res => {
-                const data  = res.data.results;
-                setGames(data);
-            })
-    }
-
-    const inputChangeHandler = event => {
-        let string = event.target.value;
-        if(timeoutState)
-            clearTimeout(timeoutState);
-        setTimeoutState(setTimeout(() => {
-            string = string.trim();
-            setSearchQuery(string);
-            resetPageNumber();
-        },600))
-    }
-
-    const genreChangeHandler = event => {
-        let genreId = event.target.value;
-        let string = 'genres='+genreId;
-        if(genreId === 'default'){
-            setSearchGenre('');
-        }
-        else
-            setSearchGenre(string);
-        resetPageNumber();
-    }
-
-    const loadMoreHandler = () =>{
-        if(Object.values(games).length > 4){
-            setPageNumber(pageNumber+1);
-        }
-    }
-
-    const loadLessHandler = () => {
-        if(pageNumber > 1){
-            setPageNumber(pageNumber-1);
-        }
-    }
-
-    const resetPageNumber = () => {
-        setPageNumber(1);
-    }
-
-    let options = null;
-    if(genres){
-        options = genres.map(item => {
-            return <option key={item.id} value={item.id}>{item.name}</option>
+  useDidComponentUpdate(() => {
+    if (artistName) {
+      musicApi.getAlbumsForArtist(artistName).then((res) => {
+        const albums = res.data.results.bindings
+        const uniqueAlbums = uniqBy(albums, (item) => {
+          return item.albumName.value
         })
+        console.log(uniqueAlbums)
+        setAlbums(uniqueAlbums)
+      })
     }
+  }, [artistName])
 
-    return (
-        <div className={classes.StoreContainer}>
-            <input onChange={inputChangeHandler} className={classes.Input} type='text' placeholder='Search'/>
-            <select onChange={genreChangeHandler} size='18' className={classes.Select}>
-                <option value="default">Choose genre / Reset genre</option>
-                {options}
-            </select>
-            <div className={classes.Buttons}>
-                <input className={classes.Button} type='button' value='<<' onClick={loadLessHandler}/>
-                <input className={classes.Button} type='button' value='>>' onClick={loadMoreHandler}/>
-            </div>
-            <GameItems addToCart={addGameToCart} loadDetails={showDetails} gamesArray={games}/>
-        </div>
+  const showDetails = useCallback((id) => {
+    props.history.push('/store/details/' + id)
+  }, [])
 
-    );
-}
-const mapDispatchToProps = dispatch => {
-    return{
-        addGameInCart: (game) => dispatch(action.addGameInCart(game))
+  const addGameToCart = (id) => {
+    let game = Object.values(albums).filter((item) => item.id === id)
+    const object = {
+      id: game[0].id,
+      name: game[0].name,
+      img: game[0].background_image,
+      released: game[0].released,
     }
+    props.addGameInCart(object)
+  }
+
+  const inputChangeHandler = (event) => {
+    let string = event.target.value
+    if (timeoutState) clearTimeout(timeoutState)
+    setTimeoutState(
+      setTimeout(() => {
+        string = string.trim()
+        setArtistName(string)
+      }, 600)
+    )
+  }
+
+  return (
+    <div className={classes.StoreContainer}>
+      <input onChange={inputChangeHandler} className={classes.Input} type="text" placeholder="Search" />
+      <Albums addToCart={addGameToCart} loadDetails={showDetails} albums={albums} />
+    </div>
+  )
 }
-export default connect(null,mapDispatchToProps)(Store);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addGameInCart: (game) => dispatch(action.addGameInCart(game)),
+  }
+}
+export default connect(null, mapDispatchToProps)(Store)
