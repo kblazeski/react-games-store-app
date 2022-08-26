@@ -4,16 +4,28 @@ import { musicApi } from '../../api/MusicApi'
 import Albums from '../../components/Albums/Albums'
 import { useDidComponentUpdate } from '../../hooks/useDidComponentUpdate'
 import * as action from '../../store/actions/index'
-import classes from './Store.module.css'
+import classes from './FindAlbums.module.css'
 import { uniqBy } from 'lodash'
+import { useEffect } from 'react'
 
-const Store = (props) => {
+const FindAlbums = (props) => {
   const [albums, setAlbums] = useState({})
   const [timeoutState, setTimeoutState] = useState(0)
   const [artistName, setArtistName] = useState('')
+  const [artistNameInputText, setArtistNameInputText] = useState('')
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(props.location.search)
+    const artistName = queryParams.get('artistName')
+
+    setArtistName(artistName)
+    setArtistNameInputText(artistName)
+  }, [])
 
   useDidComponentUpdate(() => {
     if (artistName) {
+      props.history.replace('/find-albums?artistName=' + artistName)
+
       musicApi.getAlbumsForArtist(artistName).then((res) => {
         const albums = res.data.results.bindings
         const uniqueAlbums = uniqBy(albums, (item) => {
@@ -26,7 +38,7 @@ const Store = (props) => {
   }, [artistName])
 
   const showDetails = useCallback((id) => {
-    props.history.push('/store/details?' + id)
+    props.history.push('/album/details?' + id)
   }, [])
 
   const addGameToCart = (id) => {
@@ -42,6 +54,7 @@ const Store = (props) => {
 
   const inputChangeHandler = (event) => {
     let string = event.target.value
+    setArtistNameInputText(string)
     if (timeoutState) clearTimeout(timeoutState)
     setTimeoutState(
       setTimeout(() => {
@@ -52,9 +65,10 @@ const Store = (props) => {
   }
 
   return (
-    <div className={classes.StoreContainer}>
+    <div className={classes.FindAlbumsContainer}>
       <input
         onChange={inputChangeHandler}
+        value={artistNameInputText}
         className={classes.Input}
         type="text"
         placeholder="Search albums for given artists name"
@@ -68,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
     addGameInCart: (game) => dispatch(action.addGameInCart(game)),
   }
 }
-export default connect(null, mapDispatchToProps)(Store)
+export default connect(null, mapDispatchToProps)(FindAlbums)

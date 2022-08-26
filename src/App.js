@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Redirect } from 'react-router-dom'
 import Toolbar from './components/Toolbar/Toolbar'
 import Footer from './components/Footer/Footer'
 import WrapperFlex from './hoc/WrapperFlex'
-import Store from './containers/Store/Store'
+import FindAlbums from './containers/FindAlbums/FindAlbums'
 import { Route } from 'react-router-dom'
 import Details from './containers/Details/Details'
 import Backdrop from './components/UI/Backdrop/Backdrop'
@@ -40,8 +40,8 @@ const App = (props) => {
           <Toolbar openSideDrawer={toggleSideDrawer} />
           <Layout>
             <Switch>
-              <Route path="/store/details" component={Details} />
-              <Route path="/store" component={Store} />
+              <Route path="/album/details" component={Details} />
+              <Route path="/find-albums" component={FindAlbums} />
               <Route path="/shopping-cart" component={ShoppingCart} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={SignUp} />
