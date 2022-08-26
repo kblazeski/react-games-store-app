@@ -1,21 +1,36 @@
 import axios from 'axios'
 
-const PLACEHOLDER = 'PLACEHOLDER'
-
-const ALBUMS_FOR_ARTIST_QUERY = `select distinct ?albumName ?year ?picture ?band
+const ALBUMS_FOR_ARTIST_QUERY = `select *
  where {
       ?album dbp:artist ?band.
-       ?album dbp:released ?year.
-       ?album rdf:type dbo:Album.
-       ?album dbp:name ?albumName.
-       ?album dbo:thumbnail ?picture.
-      ?band dbp:name "${PLACEHOLDER}"@en.
+      ?album dbp:released ?year.
+      ?album rdf:type dbo:Album.
+      ?album dbp:name ?albumName.
+      OPTIONAL {
+      ?album dbp:genre ?genre.
+      }.
+      ?band dbp:name "#0"@en.
 }
  limit 50`
 
-const replacePlaceholderWithValueForQuery = (query, placeholderValue) => {
-  const realQuery = query.replace(PLACEHOLDER, placeholderValue)
-  return realQuery
+const ALBUM_FOR_ARTIST_QUERY = `select *
+where {
+     ?album dbp:artist ?band.
+     ?album dbp:released ?year.
+     ?album rdf:type dbo:Album.
+     ?album dbo:abstract ?abstract.
+     ?album dbp:name "#0"@en
+     OPTIONAL {
+     ?album dbp:genre ?genre.
+     }.
+     ?band dbp:name "#1"@en.
+     FILTER langMatches(lang(?abstract),'en')
+}
+ limit 1`
+
+const replaceQueryTemplateWithValues = (query, ...values) => {
+  const templatedQuery = values.reduce((prev, current, index) => prev.replace(`#${index}`, current), query)
+  return templatedQuery
 }
 
 const generateUrlWithQuery = (query) => {
@@ -26,7 +41,12 @@ const generateUrlWithQuery = (query) => {
 
 export const musicApi = {
   getAlbumsForArtist: (aritstName) => {
-    const query = replacePlaceholderWithValueForQuery(ALBUMS_FOR_ARTIST_QUERY, aritstName)
+    const query = replaceQueryTemplateWithValues(ALBUMS_FOR_ARTIST_QUERY, aritstName)
+    return axios.get(generateUrlWithQuery(query))
+  },
+  getAlbumForArtist: (albumName, artistName) => {
+    
+    const query = replaceQueryTemplateWithValues(ALBUM_FOR_ARTIST_QUERY, albumName, artistName)
     return axios.get(generateUrlWithQuery(query))
   },
 }

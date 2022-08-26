@@ -6,7 +6,10 @@ import { MdAlbum } from 'react-icons/md'
 const AlbumItem = (props) => {
   return (
     <div className={classes.AlbumItemOuter}>
-      <div onClick={() => props.loadDetails(props.id)} className={classes.AlbumItemClickable}>
+      <div
+        onClick={() => props.loadDetails(`albumName=${props.id}&artistName=${props.artistName}`)}
+        className={classes.AlbumItemClickable}
+      >
         <div className={classes.PicturePart}>
           <MdAlbum color="white" size={100} style={{ width: '90%', height: '90%' }} />
         </div>

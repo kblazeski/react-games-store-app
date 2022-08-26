@@ -26,7 +26,7 @@ const Store = (props) => {
   }, [artistName])
 
   const showDetails = useCallback((id) => {
-    props.history.push('/store/details/' + id)
+    props.history.push('/store/details?' + id)
   }, [])
 
   const addGameToCart = (id) => {
@@ -53,8 +53,13 @@ const Store = (props) => {
 
   return (
     <div className={classes.StoreContainer}>
-      <input onChange={inputChangeHandler} className={classes.Input} type="text" placeholder="Search" />
-      <Albums addToCart={addGameToCart} loadDetails={showDetails} albums={albums} />
+      <input
+        onChange={inputChangeHandler}
+        className={classes.Input}
+        type="text"
+        placeholder="Search albums for given artists name"
+      />
+      <Albums addToCart={addGameToCart} loadDetails={showDetails} albums={albums} artistName={artistName} />
     </div>
   )
 }

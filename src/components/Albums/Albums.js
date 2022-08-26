@@ -12,6 +12,8 @@ const Albums = (props) => {
           addToCart={props.addToCart}
           key={item['albumName'].value}
           id={item['albumName'].value}
+          genre={item.genres?.value}
+          artistName={props.artistName}
           album={item}
         />
       )
