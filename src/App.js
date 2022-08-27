@@ -17,6 +17,8 @@ import * as action from './store/actions/index'
 import MyGames from './containers/MyGames/MyGames'
 import { UserProvider } from './context/UserProvider'
 import { LikedAlbumsProvider } from './context/LikedAlbumsProvider'
+import Users from './containers/FindUsers/FindUsers'
+import UserDetails from './containers/UserDetails/UserDetails'
 
 const App = (props) => {
   const [sideDrawerState, changeSideDrawerState] = useState(false)
@@ -45,7 +47,9 @@ const App = (props) => {
               <Layout>
                 <Switch>
                   <Route path="/album/details" component={Details} />
+                  <Route path="/users/details" component={UserDetails} />
                   <Route path="/find-albums" component={FindAlbums} />
+                  <Route path="/users" component={Users} />
                   <Route path="/shopping-cart" component={ShoppingCart} />
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={SignUp} />

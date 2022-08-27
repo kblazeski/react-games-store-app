@@ -86,11 +86,11 @@ const SignUp = (props) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email.value, pw.value)
     await updateProfile(auth.currentUser, { displayName: userName.value })
     await setDoc(doc(db, 'users', userCredential.user.uid), {
+      id: userCredential.user.uid,
       userName: userName.value,
       email: email.value,
+      albums: [],
     })
-  }
-  if (user) {
     props.history.push('/find-albums')
   }
   return (

@@ -18,7 +18,8 @@ const NavigationItems = (props) => {
           Home
         </NavigationItem>
         <NavigationItem link="/find-albums">Find Albums</NavigationItem>
-        <NavigationItem link="/users">Users</NavigationItem>
+        {user ? <NavigationItem link="/users">Users</NavigationItem> : null}
+
         <NavigationItem link="/faq">FAQ</NavigationItem>
         {props.email ? <NavigationItem link="/mygames">My Games</NavigationItem> : null}
       </ul>
@@ -38,7 +39,7 @@ const NavigationItems = (props) => {
           <NavigationItem link="/shopping-cart">
             <span>
               <AiFillHeart />
-              <span className={classes.Badge}>{likedAlbums.length}</span>
+              <span className={classes.Badge}>{likedAlbums && likedAlbums.length}</span>
             </span>
             Liked Albums
           </NavigationItem>

@@ -53,8 +53,11 @@ export const LikedAlbumsProvider = ({ children }) => {
     if (user) {
       const userRef = doc(db, 'users', user.uid)
       const userData = await getDoc(userRef)
-      setLikedAlbums(userData.data().albums)
-      console.log(userData.data())
+      if (userData.data()) {
+        setLikedAlbums(userData.data().albums)
+      } else {
+        setLikedAlbums([])
+      }
     } else {
       setLikedAlbums([])
     }

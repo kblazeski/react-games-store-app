@@ -74,6 +74,7 @@ const Login = (props) => {
       console.log(res.user)
     })
     event.preventDefault()
+    props.history.push('/find-albums')
   }
 
   let loginContent = (
