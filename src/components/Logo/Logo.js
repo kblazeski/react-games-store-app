@@ -1,12 +1,13 @@
-import React from 'react';
-import classes from './Logo.module.css';
-import logo from '../../assets/images/recolored-game.png';
+import React from 'react'
+import classes from './Logo.module.css'
+import logo from '../../assets/images/recolored-game.png'
+import { FaMusic } from 'react-icons/fa'
 
-const Logo = props => {
-    return (
-        <div className={classes.Logo}>
-            <img alt='img' src={logo}/>
-        </div>
-    );
+const Logo = (props) => {
+  return (
+    <div className={classes.Logo}>
+      <FaMusic size={35} />
+    </div>
+  )
 }
-export default Logo;
+export default Logo

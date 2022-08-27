@@ -1,8 +1,13 @@
-.Logo{
-    display:block;
-    height: 100%;
+.Logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 67px;
+  color: #c21e1b;
 }
-.Logo img{
-    width: inherit;
-    height: inherit;
+.Logo img {
+  width: inherit;
+  height: inherit;
 }
