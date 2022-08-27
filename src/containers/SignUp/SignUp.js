@@ -4,7 +4,6 @@ import ProgressBar from '../../components/UI/ProgressBar/ProgressBar'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth, db } from '../../firebase/firebase'
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
-import { useUser } from '../../context/UserProvider'
 
 const SignUp = (props) => {
   const [userName, setUserName] = useState({ valid: false, touched: false, value: '' })
@@ -12,8 +11,6 @@ const SignUp = (props) => {
   const [pw, setPw] = useState({ valid: false, touched: false, value: '' })
   const [pwConfirm, setPwConfirm] = useState({ valid: false, touched: false, value: '' })
   const [validated, setValidated] = useState(false)
-
-  const user = useUser()
 
   useEffect(() => {
     checkValidation()
@@ -91,6 +88,7 @@ const SignUp = (props) => {
       email: email.value,
       albums: [],
     })
+    console.log(auth.currentUser.displayName)
     props.history.push('/find-albums')
   }
   return (
