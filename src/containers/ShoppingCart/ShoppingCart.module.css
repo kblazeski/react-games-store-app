@@ -1,68 +1,75 @@
-.ShoppingCartContainer{
-    display:block;
-    width:100%;
-    height: 100%;
+.ShoppingCartContainer {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
-.ShoppingCart{
-    width: 85%;
-    margin: 15px auto;
-    height: 100%;
-    min-height: 100vh;
-    box-shadow: 0 2px 3px #0a0a0a;
-    border: 1px solid #1a1919;
-    box-sizing: border-box;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+.ShoppingCart {
+  width: 85%;
+  margin: 15px auto;
+  height: 100%;
+  min-height: 100vh;
+  box-shadow: 0 2px 3px #0a0a0a;
+  border: 1px solid #1a1919;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
-.CartItem{
-    display:flex;
-    width:100%;
-    height: 150px;
+.CartItem {
+  display: flex;
+  width: 100%;
+  height: 150px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: white;
+  box-sizing: border-box;
+  padding: 7px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px #0a0a0a;
+}
+.CartItem img {
+  height: 100%;
+  width: 25%;
+}
+.PicturePart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+@media (max-width: 623px) {
+  .ShoppingCart {
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    color: white;
-    box-sizing: border-box;
-    padding: 7px;
-    box-shadow: 0 2px 6px #0a0a0a;
+    flex-wrap: wrap;
+  }
+  .CartItem {
+    flex-direction: column;
+    height: 250px;
+  }
+  .CartItem img {
+    width: 65%;
+    height: 174px;
+  }
 }
-.CartItem img{
-    height: 100%;
-    width:25%;
+.TrashButton:hover {
+  cursor: pointer;
 }
-@media (max-width: 623px){
-    .ShoppingCart{
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    .CartItem{
-        flex-direction: column;
-        height: 250px;
-    }
-    .CartItem img{
-        width: 65%;
-        height: 174px;
-    }
+.TrashButton:active {
+  color: #c21e1b;
+  cursor: pointer;
 }
-.TrashButton:hover{
-    cursor: pointer;
+.ButtonContainer {
+  margin: 25px auto;
 }
-.TrashButton:active{
-    color: #c21e1b;
-    cursor: pointer;
+.Button {
+  display: block;
+  background-color: #c21e1b;
+  color: white;
+  border: #c21e1b;
+  border-radius: 5px;
 }
-.ButtonContainer{
-    margin: 25px auto;
-}
-.Button{
-    display: block;
-    background-color: #c21e1b;
-    color:white;
-    border: #c21e1b;
-    border-radius: 5px;
-}
-.Button:focus{
-    outline:none;
+.Button:focus {
+  outline: none;
 }

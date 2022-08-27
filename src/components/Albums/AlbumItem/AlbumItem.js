@@ -2,8 +2,12 @@ import React from 'react'
 import classes from './AlbumItem.module.css'
 import { AiFillHeart } from 'react-icons/ai'
 import { MdAlbum } from 'react-icons/md'
+import { useUser } from '../../../context/UserProvider'
+import { useCheckIfAlbumExists } from '../../../context/LikedAlbumsProvider'
 
 const AlbumItem = (props) => {
+  const user = useUser()
+  const checkIfAlbumExists = useCheckIfAlbumExists()
   return (
     <div className={classes.AlbumItemOuter}>
       <div
@@ -15,9 +19,16 @@ const AlbumItem = (props) => {
         </div>
         <div className={classes.TextPart}>{props.album.albumName.value}</div>
       </div>
-      <button className={classes.Button} onClick={() => props.addToCart(props.id)}>
-        <AiFillHeart size={20} />
-      </button>
+      {user && !checkIfAlbumExists({ albumName: props.id, artistName: props.artistName }) ? (
+        <button
+          className={classes.Button}
+          onClick={() => props.addToLiked({ albumName: props.id, artistName: props.artistName })}
+        >
+          <AiFillHeart size={20} />
+        </button>
+      ) : (
+        <div className={classes.Button}></div>
+      )}
     </div>
   )
 }

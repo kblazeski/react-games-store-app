@@ -7,6 +7,7 @@ import * as action from '../../store/actions/index'
 import classes from './FindAlbums.module.css'
 import { uniqBy } from 'lodash'
 import { useEffect } from 'react'
+import { useAddLikedAlbum } from '../../context/LikedAlbumsProvider'
 
 const FindAlbums = (props) => {
   const [albums, setAlbums] = useState({})
@@ -14,6 +15,7 @@ const FindAlbums = (props) => {
   const [artistName, setArtistName] = useState('')
   const [artistNameInputText, setArtistNameInputText] = useState('')
 
+  const addLikedAlbum = useAddLikedAlbum()
 
   useEffect(() => {
     const queryParams = new URLSearchParams(props.location.search)
@@ -42,15 +44,9 @@ const FindAlbums = (props) => {
     props.history.push('/album/details?' + id)
   }, [])
 
-  const addGameToCart = (id) => {
-    let game = Object.values(albums).filter((item) => item.id === id)
-    const object = {
-      id: game[0].id,
-      name: game[0].name,
-      img: game[0].background_image,
-      released: game[0].released,
-    }
-    props.addGameInCart(object)
+  const addToLiked = (album) => {
+    console.log(album)
+    addLikedAlbum(album)
   }
 
   const inputChangeHandler = (event) => {
@@ -74,7 +70,7 @@ const FindAlbums = (props) => {
         type="text"
         placeholder="Search albums for given artists name"
       />
-      <Albums addToCart={addGameToCart} loadDetails={showDetails} albums={albums} artistName={artistName} />
+      <Albums addToLiked={addToLiked} loadDetails={showDetails} albums={albums} artistName={artistName} />
     </div>
   )
 }

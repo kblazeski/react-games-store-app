@@ -9,7 +9,7 @@ const Albums = (props) => {
       return (
         <AlbumItem
           loadDetails={props.loadDetails}
-          addToCart={props.addToCart}
+          addToLiked={props.addToLiked}
           key={item['albumName'].value}
           id={item['albumName'].value}
           genre={item.genres?.value}

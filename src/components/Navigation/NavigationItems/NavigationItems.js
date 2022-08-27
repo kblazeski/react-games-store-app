@@ -5,9 +5,11 @@ import { FaUser, FaShoppingCart } from 'react-icons/fa'
 import { connect } from 'react-redux'
 import { useUser } from '../../../context/UserProvider'
 import { AiFillHeart } from 'react-icons/ai'
+import { useLikedAlbums } from '../../../context/LikedAlbumsProvider'
 
 const NavigationItems = (props) => {
   const user = useUser()
+  const likedAlbums = useLikedAlbums()
 
   return (
     <React.Fragment>
@@ -32,13 +34,15 @@ const NavigationItems = (props) => {
             Log in
           </NavigationItem>
         )}
-        <NavigationItem link="/shopping-cart">
-          <span>
-            <AiFillHeart />
-            <span className={classes.Badge}>{props.cartItemsNumber}</span>
-          </span>
-          Liked Albums
-        </NavigationItem>
+        {user ? (
+          <NavigationItem link="/shopping-cart">
+            <span>
+              <AiFillHeart />
+              <span className={classes.Badge}>{likedAlbums.length}</span>
+            </span>
+            Liked Albums
+          </NavigationItem>
+        ) : null}
       </ul>
     </React.Fragment>
   )
