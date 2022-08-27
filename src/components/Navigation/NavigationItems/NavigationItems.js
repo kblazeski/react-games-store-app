@@ -3,8 +3,12 @@ import NavigationItem from './NavigationItem/NavigationItem'
 import classes from './NavigationItems.module.css'
 import { FaUser, FaShoppingCart } from 'react-icons/fa'
 import { connect } from 'react-redux'
+import { useUser } from '../../../context/UserProvider'
+import { AiFillHeart } from 'react-icons/ai'
 
-const navigationItems = (props) => {
+const NavigationItems = (props) => {
+  const user = useUser()
+
   return (
     <React.Fragment>
       <ul className={classes.NavigationItems}>
@@ -17,8 +21,11 @@ const navigationItems = (props) => {
         {props.email ? <NavigationItem link="/mygames">My Games</NavigationItem> : null}
       </ul>
       <ul className={classes.NavigationItemsAuth}>
-        {props.email ? (
-          <NavigationItem link="/login">{props.email}</NavigationItem>
+        {user ? (
+          <NavigationItem link="/login">
+            <FaUser />
+            {user.displayName}
+          </NavigationItem>
         ) : (
           <NavigationItem link="/login">
             <FaUser />
@@ -27,10 +34,10 @@ const navigationItems = (props) => {
         )}
         <NavigationItem link="/shopping-cart">
           <span>
-            <FaShoppingCart />
+            <AiFillHeart />
             <span className={classes.Badge}>{props.cartItemsNumber}</span>
           </span>
-          Shopping Cart
+          Liked Albums
         </NavigationItem>
       </ul>
     </React.Fragment>
@@ -42,4 +49,4 @@ const mapStateToProps = (state) => {
     email: state.auth.email,
   }
 }
-export default connect(mapStateToProps)(navigationItems)
+export default connect(mapStateToProps)(NavigationItems)

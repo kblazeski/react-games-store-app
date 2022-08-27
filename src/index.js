@@ -9,15 +9,7 @@ import authReducer from './store/reducers/Auth'
 import { Provider } from 'react-redux'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from './firebase/firebase'
-
-const test = async () => {
-  const querySnapshot = await getDocs(collection(db, 'test'))
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`)
-  })
-}
-
-test()
+import { auth } from './firebase/firebase'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 

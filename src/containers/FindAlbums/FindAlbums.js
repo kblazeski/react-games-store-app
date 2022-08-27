@@ -14,6 +14,7 @@ const FindAlbums = (props) => {
   const [artistName, setArtistName] = useState('')
   const [artistNameInputText, setArtistNameInputText] = useState('')
 
+
   useEffect(() => {
     const queryParams = new URLSearchParams(props.location.search)
     const artistName = queryParams.get('artistName')

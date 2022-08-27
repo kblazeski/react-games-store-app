@@ -15,6 +15,7 @@ import Login from './containers/Login/Login'
 import { connect } from 'react-redux'
 import * as action from './store/actions/index'
 import MyGames from './containers/MyGames/MyGames'
+import { UserProvider } from './context/UserProvider'
 
 const App = (props) => {
   const [sideDrawerState, changeSideDrawerState] = useState(false)
@@ -33,25 +34,27 @@ const App = (props) => {
   }
   return (
     <div className="App">
-      <BrowserRouter>
-        <SideDrawer isOpen={sideDrawerState} />
-        {showBackDrop}
-        <WrapperFlex>
-          <Toolbar openSideDrawer={toggleSideDrawer} />
-          <Layout>
-            <Switch>
-              <Route path="/album/details" component={Details} />
-              <Route path="/find-albums" component={FindAlbums} />
-              <Route path="/shopping-cart" component={ShoppingCart} />
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/mygames" component={MyGames} />
-              <Redirect to="/" />
-            </Switch>
-          </Layout>
-          <Footer />
-        </WrapperFlex>
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <SideDrawer isOpen={sideDrawerState} />
+          {showBackDrop}
+          <WrapperFlex>
+            <Toolbar openSideDrawer={toggleSideDrawer} />
+            <Layout>
+              <Switch>
+                <Route path="/album/details" component={Details} />
+                <Route path="/find-albums" component={FindAlbums} />
+                <Route path="/shopping-cart" component={ShoppingCart} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/mygames" component={MyGames} />
+                <Redirect to="/" />
+              </Switch>
+            </Layout>
+            <Footer />
+          </WrapperFlex>
+        </BrowserRouter>
+      </UserProvider>
     </div>
   )
 }
