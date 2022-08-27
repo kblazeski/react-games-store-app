@@ -41,7 +41,7 @@ const NavigationItems = (props) => {
               <AiFillHeart />
               <span className={classes.Badge}>{likedAlbums && likedAlbums.length}</span>
             </span>
-            Liked Albums
+            Favourite albums
           </NavigationItem>
         ) : null}
       </ul>

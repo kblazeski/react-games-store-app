@@ -28,7 +28,7 @@ const UserDetails = (props) => {
       return (
         <>
           <div className={classes.Inner}>
-            Liked albums for user: <strong>{userData.userName}</strong>
+            Favourite albums for user: <strong>{userData.userName}</strong>
           </div>
           {userData.albums.map((item) => {
             return (
